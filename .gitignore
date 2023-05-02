@@ -1,0 +1,7 @@
+all_angles.csv
+*.zip
+core/__pycache__/
+*smearing.csv
+*.pkl
+*.csv
+/pickle/*.pkl

@@ -9,8 +9,8 @@ from core.signal_bag import *
 from core.stacking_analysis import *
 from core.req_arrays import *
 import pickle
-from numba_progress import ProgressBar
-import torch
+# from numba_progress import ProgressBar
+# import torch
 # from core import weights
 num_threads = int(mul.cpu_count()*0.9)
 set_num_threads(num_threads)
@@ -20,7 +20,7 @@ all_enu = e_nu_wall
 
 # enus = 0.5*(all_enu[1:]+all_enu[:-1])
 # UNCOMMENT FOR DENSER LOGARITHMIC BINS, optimal nbins is 1e6
-enus = np.logspace(11.001, 18.999, int(1e7))
+enus = np.logspace(11.001, 18.999, int(1e6))
 gamma_arr = [-1, -2.2, -2.5, -3]
 phio = np.logspace(-38, -26, 1000) #CHANGING TO LINEAR BINS RESULTS IN STRAIGHT LINES
 
@@ -401,42 +401,6 @@ nsa = 50
 def TS_for_all_psrs2(nsa):  
     return Ts_arr2(nsa, t2mp, all_Bi, Ns) 
 TS_for_all_psrs2(nsa)
-# Convert the input arrays to PyTorch tensors
-t2mp_torch = torch.as_tensor(t2mp)
-all_Bi_torch = torch.as_tensor(all_Bi)
-phio_torch = torch.as_tensor(phio)
-
-# Define the PyTorch version of the TS_for_all_psrs2 function using torch.jit.script
-@torch.jit.script
-def TS_for_all_psrs2_torch(nsa_arr, t2mp, all_Bi_torch, Ns):
-    out = torch.zeros((nsa_arr.size(0), phio_torch.size(0)), dtype=torch.float64)
-    for i in range(nsa_arr.size(0)):
-        nsa = nsa_arr[i]
-        for j in range(len(phio)):
-            phi = phio[j]
-            ts_sum = 0.0
-            for psr in range(Ns):
-                ts_sum += t2mp[psr] * torch.cos(nsa + all_Bi_torch[psr] * phi)
-            out[i][j] = ts_sum
-    return out.tolist()
-
-
-
-# Compute the TS values for all (gamma, ws, phi) combinations using PyTorch
-all_TSS_torch = []
-for ws in range(4):
-    tmpp = []
-    print("ws = {}".format(ws))
-    for gamma in range(4):
-        print("gamma = {}".format(gamma))
-        nsa_arr = torch.as_tensor([arr[gamma][ws] * phi for phi in phio])
-        ts_arr = TS_for_all_psrs2_torch(nsa_arr, t2mp_torch, all_Bi_torch, Ns)
-        tmpp.append(ts_arr)
-    all_TSS_torch.append(tmpp)
-    tmpp = []
-
-
-
 print('\nCALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS\n')
 
 all_TSS = []

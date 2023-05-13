@@ -125,7 +125,7 @@ class Data(): # type: ignore
 
         #IMPORTING MSPDATA
         # self.mspdata = pd.read_csv(master_path + "ATNF.csv")
-        mspdata = pd.read_csv(master_path + "ATNF.csv")
+        mspdata = pd.read_csv(master_path + "ATNF.txt")
         mspdata = mspdata[mspdata['DIST_DM'] != '*']
         mspdata = mspdata[mspdata['S1400'] != '*']
         self.mspdata = mspdata

@@ -15,7 +15,7 @@ import scipy.interpolate as interp
 # from core import weights
 
 
-num_threads = int(14)
+num_threads = int(56)
 set_num_threads(num_threads)
 
 def counted_season(removed_season):
@@ -90,12 +90,12 @@ for REMOVED_SEASON in prange(10):
 
 
     altier_path = [os.getcwd() + '/pickle/', os.getcwd() + '/../pickle/']
-    if f'wt_acc_{len(enus)}_bins_rem_s_{REMOVED_SEASON}.pkl' in os.listdir(altier_path[0]):# or f'wt_acc.pkl_{len(enus)}' in os.listdir(altier_path[1]):
+    if f'wt_acc_{len(enus)}_bins_only_s_{REMOVED_SEASON}.pkl' in os.listdir(altier_path[0]):# or f'wt_acc.pkl_{len(enus)}' in os.listdir(altier_path[1]):
         print("Loading wt_acc from pickle")
         # try:
         #     wt_acc = pickle.load(altier_path[1] + f'wt_acc.pkl_{len(enus)//2}_bins')
         # except:
-        with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_rem_s_{REMOVED_SEASON}.pkl', 'rb') as f:
+        with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_only_s_{REMOVED_SEASON}.pkl', 'rb') as f:
             wt_acc = pickle.load(f)
         
         
@@ -106,14 +106,14 @@ for REMOVED_SEASON in prange(10):
         wt_acc = []
         for gamma in prange(len(gamma_arr)):
             wt_allpsr = []
-            for season in tqdm(prange(9)):
+            for season in tqdm(prange(len(seasons))):
                 wt_allpsr.append(np.array(psr_wt_sing_gamma(prange(p), gamma_arr[gamma], seasons[season]), dtype=np.float64))
                 # tmp = []
             wt_acc.append(wt_allpsr)
             wt_allpsr = []
             
         wt_acc = np.asfarray(wt_acc, dtype=np.float64)
-        with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_rem_s_{REMOVED_SEASON}.pkl', 'wb') as f:
+        with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_only_s_{REMOVED_SEASON}.pkl', 'wb') as f:
             pickle.dump(wt_acc, f)
         print("Calculated wt_acc for all pulsars and seasons and gamma")
 
@@ -448,36 +448,10 @@ for REMOVED_SEASON in prange(10):
 
 
     all_TSS = np.array(all_TSS, dtype=np.float64)
-    all_TSS.shape
 
-
-    # for i in range(1, len(all_TSS)):
-    plt.figure()
-    histdetails = plt.hist(np.ravel(all_TSS[1:]), bins=10, density=True, histtype='step')
-    # plt.ylim(0, 1000)
-    plt.yscale('log')
-    plt.xlabel('TS')
-    plt.ylabel('Counts')
-    plt.title('TS distribution')
-    plt.show()
-
-    #### [markdown]
-    # histdetails = np.histogram(np.ravel(all_TSS[1:]), bins=10)
-
-
-    histdetails
-
-
-    len(np.ravel(all_TSS[1:]))
 
     #### [markdown]
     # np.count_nonzero(np.ravel(all_TSS[1:])> )
-
-
-    all_TSS = np.array(all_TSS, dtype=np.float64)
-
-
-    all_TSS.shape
 
 
     for w in range(1,4):
@@ -577,7 +551,7 @@ for REMOVED_SEASON in prange(10):
         axs[i].yaxis.set_tick_params(labelsize=15)
         
         axs[i].set_ylim(-220, 90)
-        # axs[i].set_xlim(min(e2dfde[-1]), max(e2dfde[1]))
+        axs[i].set_xlim(0.95e-19, 1e-6)
 
     plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
 
@@ -618,5 +592,6 @@ for REMOVED_SEASON in prange(10):
     plt.show()
 
     print(f'###########\n\nRM_SEASON = {REMOVED_SEASON}\n\n###########\n')
+
 
 

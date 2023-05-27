@@ -25,7 +25,7 @@ import numpy as np
 from scipy.optimize import minimize
 # from core import weights
 from core import weights as weights
-from core.req_arrays import *
+from core.req_arrays_CHIME import *
 from core.stacking_analysis import wall_nu
 import multiprocessing as mul
 

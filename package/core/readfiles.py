@@ -124,15 +124,11 @@ class Data(): # type: ignore
         # print("read mspdata")
 
         #IMPORTING MSPDATA
-<<<<<<< HEAD
         mspdata = pd.read_csv(master_path + "ATNF.csv")
         # mspdata = pd.read_csv(master_path + "ATNF_max5.txt")
-=======
-        # self.mspdata = pd.read_csv(master_path + "ATNF.csv")
-        mspdata = pd.read_csv(master_path + "ATNF.txt")
->>>>>>> 7fcc6dd7aee79a0a1da3dbc3b4a18305c2c6430b
         mspdata = mspdata[mspdata['DIST_DM'] != '*']
         mspdata = mspdata[mspdata['S1400'] != '*']
+        # mspdata = mspdata[abs(mspdata['DECJD'].values) > 3]
         self.mspdata = mspdata
         print("read mspdata")
 

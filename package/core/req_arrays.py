@@ -113,8 +113,6 @@ de_nu = 1e9*(10**log_e[1:] - 10**log_e[:-1])                #dE_nu in eV
 
 msra = np.array([float(i) for i in mspdata['RAJD'].values], dtype=np.float64)         #RAJD in degrees
 msdec = np.asfarray([float(i) for i in mspdata['DECJD'].values], dtype=np.float64)       #DECJD in degrees
-msdist = np.array( [float(i) for i in mspdata['DIST_DM']], dtype=np.float64)
-mss1400 = np.array( [float(i) for i in mspdata['S1400']], dtype=np.float64)
 # msra = np.array([float(i) for i in mspdata['ra'].values], dtype=np.float64)         #RA CHIME in degrees
 # msdec = np.array([float(i) for i in mspdata['dec'].values], dtype=np.float64)       #DEC CHIME in degrees
 
@@ -131,7 +129,7 @@ deg2rad_var = np.pi/180
 icdata = []
 uptdata = []
 eadata = []
-mspdata = []
+# mspdata = []
 
 
 # All units check out:   eV, cm2, s, deg, GeV

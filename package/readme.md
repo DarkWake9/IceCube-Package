@@ -91,7 +91,7 @@ We then easily calculate upper limits by using scipy.interp1d as the no.of value
 
 - Used numba.vectorize package to replace a for loop calling functions like `ns_sing_season`, `psr_wt_acc`. This reduce the computation time by a factor of 10.
 
-- Used multiprocessing to parallelize the computation. The multiprocessing package is used to run the code in parallel on multiple cores of the CPU.
+- Used numba.prange to parallelize the computation. The prange package is used to run the code in parallel on multiple cores of the CPU. (Previously used python.multiprocessing. But it consumes a lot of memory and removes the numba acceleration so multiprocessing parts are depercated)
 
 - Running the code normally requires ~ 2e12 calculations which take > 2 days of continuous computation.
 

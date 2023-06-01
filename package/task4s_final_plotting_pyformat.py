@@ -14,7 +14,7 @@ import scipy.interpolate as interp
 
 
 
-num_threads = int(mul.cpu_count()*0.9)
+num_threads = 14
 set_num_threads(num_threads)
 # UNCOMMENT FOR LINEAR BINS
 # all_enu = np.linspace(10**11.001, 10**18.999, 1000)
@@ -22,7 +22,7 @@ all_enu = e_nu_wall
 
 # enus = 0.5*(all_enu[1:]+all_enu[:-1])
 # UNCOMMENT FOR DENSER LOGARITHMIC BINS, optimal nbins is 1e6
-enus = np.logspace(11.001, 18.999, int(6e5))
+enus = np.logspace(11.001, 18.999, int(6e4))
 enus_bin_indices = np.zeros(len(enus), dtype=np.int64)
 
 for i in prange(len(enus)):
@@ -535,6 +535,18 @@ phio[np.argmax(all_TSS_wmod1[0])]
 # # W_MODEL = 1/d2 and s1400
 
  
+wds_index = [i for i in range(len(mspdata)) if mspdata['DIST_DM'][i] != '*' and mspdata['S1400'][i] != '*']
+wt_acc2 = []
+for i in range(len(wt_acc)):
+    tmp = []
+    for j in range(len(wt_acc[i])):
+        tmp.append(wt_acc[i][j][wds_index])
+    wt_acc2.append(tmp)
+    
+wt_acc2 = np.asfarray(wt_acc2)
+wt_acc = wt_acc2
+ 
+print(wt_acc.shape)
 # ### Signal
 
 
@@ -911,4 +923,4 @@ plt.show()
 
 
 
-
+mul.c

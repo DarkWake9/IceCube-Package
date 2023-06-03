@@ -14,7 +14,7 @@ import scipy.interpolate as interp
 
 
 
-num_threads = 14
+num_threads = 56
 set_num_threads(num_threads)
 # UNCOMMENT FOR LINEAR BINS
 # all_enu = np.linspace(10**11.001, 10**18.999, 1000)
@@ -923,4 +923,4 @@ plt.show()
 
 
 
-mul.c
+

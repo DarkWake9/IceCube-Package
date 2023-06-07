@@ -1,6 +1,6 @@
 # **STACKED SEARCH FOR CORRELATION BETWEEN ICECUBE NEUTRINOS AND RADIO PULSARS**
 
-This repository contains the code used to perform the analysis described in the paper "Stacked Search for Correlation Between IceCube Neutrinos and Radio Pulsars" (https://arxiv.org/abs/23xx.xxxxx). The code is written in Python 3.10 and uses the following packages: numpy, scipy, matplotlib, pandas, numba, multiprocessing. The code is provided as is, without any warranty. If you use this code, please cite the paper.
+This repository contains the code used to perform the analysis described in the paper "A stacked search for spatial coincidences between IceCube neutrinos and radio pulsars" (https://arxiv.org/abs/2306.03427). The code is written in Python 3.10 and uses the following packages: numpy, scipy, matplotlib, pandas, numba, multiprocessing. The code is provided as is, without any warranty. If you use this code, please cite the paper.
 
 ### **Description of the code**
 
@@ -17,11 +17,11 @@ The core/ directory contains the following files:
 
 - download_ATNF.py : downloads the ATNF pulsar catalogue and saves it in data/ATNF.txt
 - download_IC.py : downloads the IceCube neutrino data package and saves it in data/icecube_10year_ps
-- stacking_analysis.py : defines the functions used to calculate the Test statistic, and the signal flux model and other miscellaneous functions used in the analysis indicated in the paper https://arxiv.org/abs/23xx.xxxxx
+- stacking_analysis.py : defines the functions used to calculate the Test statistic, and the signal flux model and other miscellaneous functions used in the analysis indicated in the paper https://arxiv.org/abs/2306.03427
 - req_arrays.py : Stores the required data in the form of numpy arrays for faster and easier computation
 - readfiles.py : Reads and refines the data from the files and stores them in the form of panda.Dataframes
-- signal_bag.py : defines the functions used to compute the Signal and Background PDF in the analysis indicated in the paper https://arxiv.org/abs/23xx.xxxxx
-- weights.py : (depercated) defines the functions used to compute the weights of pulsars for the analysis indicated in the paper https://arxiv.org/abs/23xx.xxxxx
+- signal_bag.py : defines the functions used to compute the Signal and Background PDF in the analysis indicated in the paper https://arxiv.org/abs/2306.03427
+- weights.py : (depercated) defines the functions used to compute the weights of pulsars for the analysis indicated in the paper https://arxiv.org/abs/2306.03427
 
 This code is tested against the4 CHIME/FRB data to check whether the code runs correctly. The files are:
 - sig_bag_CHIME.py : Has the same functions as in signal_bag.py but are tested with CHIME/FRB data to check whether the  code runs correctly

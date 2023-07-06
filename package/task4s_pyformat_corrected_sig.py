@@ -2,7 +2,7 @@ import numpy as np
 import os
 import multiprocessing as mul
 import matplotlib.pyplot as plt
-from numba import jit, njit, prange, set_num_threads, vectorize, guvectorize, cuda
+from numba import jit, njit, prange, set_num_threads, vectorize
 from tqdm import tqdm
 from core.signal_bag import *
 from core.stacking_analysis import *
@@ -12,7 +12,7 @@ import scipy.stats as st
 import scipy.interpolate as interp
 
 
-num_threads = int(mul.cpu_count())
+num_threads = 32
 set_num_threads(num_threads)
 # UNCOMMENT FOR LINEAR BINS
 # all_enu = np.linspace(10**11.001, 10**18.999, 1000)
@@ -23,7 +23,8 @@ cut = cone
 
 # enus = 0.5*(all_enu[1:]+all_enu[:-1])
 # UNCOMMENT FOR DENSER LOGARITHMIC BINS, optimal nbins is 1e6
-enus = np.logspace(11.001, 18.999, int(5e4))
+nbins = 1e7
+enus = np.logspace(11.001, 18.999, int(nbins))
 enus_bin_indices = np.zeros(len(enus), dtype=np.int64)
 
 for i in prange(len(enus)):

@@ -1,5 +1,5 @@
 #! /bin/bash -l
-#PBS -l nodes=4:ppn=32
+#PBS -l nodes=5:ppn=32
 #PBS -q long
 
 
@@ -20,7 +20,7 @@ cd /scratch/shantanu/icecube/IceCube-Package/package
 #PBS -e task4s_5deg.err
 #PBS -o task4s_5deg.out
 
-python3 ./task4s_pyformat_corrected_sig_term.py -c 5 --nc 32
+python3 ./task4s_pyformat_corrected_sig_term.py -c 5 --nc 32    
 
 cd /scratch/shantanu/icecube/IceCube-Package/package
 #PBS -e task4s_6deg.err

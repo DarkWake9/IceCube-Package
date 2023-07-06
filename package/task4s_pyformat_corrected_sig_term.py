@@ -749,9 +749,9 @@ for i in range(2):
         plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
 
         plt.tight_layout()
-        plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel{i+2}.pdf')
+        plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel{i+2}_{cone_deg}.pdf')
 # plt.show()
-print(f'\nTS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wt.pdf\nDONE')
+print(f'\nTS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wt_{cone_deg}..pdf\nDONE')
 
 
 #after wt_acc mod
@@ -829,7 +829,7 @@ for i in range(1, 3):
 plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
 
 plt.tight_layout()
-plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel_all.pdf')
+plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel_all_{cone_deg}.pdf')
 
 
 
@@ -943,7 +943,7 @@ axs[2].set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = s_{1400}}}$', 
 
 plt.suptitle('95% UL of Total Energy Flux vs Neutrino Energy', fontweight='bold', fontsize=20, fontfamily='serif')
 plt.tight_layout()
-plt.savefig(f'outputs/UL_all_w_model_bins={len(enus)}_C_wmodel_all.pdf')
+plt.savefig(f'outputs/UL_all_w_model_bins={len(enus)}_C_wmodel_all_{cone_deg}.pdf')
 plt.show()
 
 

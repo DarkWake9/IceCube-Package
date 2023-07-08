@@ -428,11 +428,11 @@ print('\nCALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS')
 all_TSS_wmod1 = np.array(all_TSS_wmod1, dtype=np.float64)
 
 
-for g in range(len(gamma_arr)):
-    print(min(all_TSS_wmod1[g]), max(all_TSS_wmod1[g]))
-    # np.savetxt(f'TS_w{w}_g{g}.txt', all_TSS[w][g])
+# for g in range(len(gamma_arr)):
+#     print(min(all_TSS_wmod1[g]), max(all_TSS_wmod1[g]))
+#     # np.savetxt(f'TS_w{w}_g{g}.txt', all_TSS[w][g])
     
-    print('wt\n')
+#     print('wt\n')
 
 
 
@@ -510,7 +510,7 @@ axs.set_ylabel('TS', fontdict=axesfont, fontsize=20)
 axs.xaxis.set_tick_params(labelsize=15)
 axs.yaxis.set_tick_params(labelsize=15)
 
-axs.set_ylim(-220, 90)
+axs.set_ylim(-20, 6)
 axs.set_xlim(0.95e-19, 1e-6)
 
 plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
@@ -755,21 +755,21 @@ print(f'\nTS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wt_{cone_deg}..pdf\nDONE')
 
 
 #after wt_acc mod
-c=2
-for w in all_TSS_wt_d2_wt_s:
-    print(c)
-    for i in w[1:]:
-        print(max(i), np.argmax(i), 1e19 * phio[np.argmax(i)])
-    c+=1
+# c=2
+# for w in all_TSS_wt_d2_wt_s:
+#     print(c)
+#     for i in w[1:]:
+#         print(max(i), np.argmax(i), 1e19 * phio[np.argmax(i)])
+#     c+=1
 
 
-#before wt_acc mod
-c=2
-for w in all_TSS_wt_d2_wt_s:
-    print(c)
-    for i in w[1:]:
-        print(max(i), np.argmax(i), 1e19 * phio[np.argmax(i)])
-    c+=1
+# #before wt_acc mod
+# c=2
+# for w in all_TSS_wt_d2_wt_s:
+#     print(c)
+#     for i in w[1:]:
+#         print(max(i), np.argmax(i), 1e19 * phio[np.argmax(i)])
+#     c+=1
 
 
 # # ALL PLOTS
@@ -791,15 +791,15 @@ axs[0].set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = 1}}$', fontdic
 
 
     
-axs[0].legend(prop={'size':16}, framealpha=0, loc='lower left')
-axs[0].hlines(-3.84, 1e-20, 1e-5, linestyles='dashed', lw=2.2, ls='-.', label='95 % UPPER LIMIT $TS = -3.84$', color='lightcoral')
+
+axs[0].hlines(-3.84, 1e-20, 1e-5, linestyles='dashed', lw=2.2, ls='-.', label='$TS = -3.84$', color='lightcoral')
 axs[0].set_xscale('log')
 axs[0].set_xlabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 100 TeV ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
 axs[0].set_ylabel('TS', fontdict=axesfont, fontsize=20)
 axs[0].xaxis.set_tick_params(labelsize=15)
 axs[0].yaxis.set_tick_params(labelsize=15)
-
-axs[0].set_ylim(-220, 90)
+axs[0].legend(prop={'size':15}, framealpha=0, loc='lower left')
+axs[0].set_ylim(-20, 5)
 axs[0].set_xlim(0.95e-19, 1e-6)
 
 for i in range(1, 3):
@@ -815,18 +815,21 @@ for i in range(1, 3):
 
 
                 
-        axs[i].legend(prop={'size':16}, framealpha=0, loc='lower left')
-        axs[i].hlines(-3.84, 1e-20, 1e-5, linestyles='dashed', lw=2.2, ls='-.', label='95 % UPPER LIMIT $TS = -3.84$', color='lightcoral')
+        
+        axs[i].hlines(-3.84, 1e-20, 1e-5, linestyles='dashed', lw=2.2, ls='-.', label='$TS = -3.84$', color='lightcoral')
         axs[i].set_xscale('log')
         axs[i].set_xlabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 100 TeV ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$)', fontdict=axesfont)
         axs[i].set_ylabel('TS', fontdict=axesfont, fontsize=20)
         axs[i].xaxis.set_tick_params(labelsize=15)
         axs[i].yaxis.set_tick_params(labelsize=15)
-        
-        axs[i].set_ylim(-220, 90)
+        axs[i].legend(prop={'size':15}, framealpha=0, loc='lower left')
+        axs[i].set_ylim(-20, 5)
         axs[i].set_xlim(0.95e-19, 1e-6)
 
-plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
+if cone_deg == 5:
+    plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
+else:
+    plt.suptitle('TS vs Total Neutrino Flux at 100 TeV\nCone = ' + str(cone_deg) + '$^{\circ}$', fontweight='bold', fontsize=20, fontfamily='serif')
 
 plt.tight_layout()
 plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel_all_{cone_deg}.pdf')
@@ -863,7 +866,7 @@ for gamma in prange(len(gamma_arr)):
         dist_g = interp.interp1d(all_TSS_wmod1[gamma], i[gamma]/1e9)
         temp.append(dist_g(-3.84))
 
-        
+    print(max(temp), gamma_arr[gamma])    
     all_UL_wmodel1.append(temp)
 
 
@@ -885,13 +888,15 @@ mark = ['^', 'o', 's', 'd']
 
 all_UL_wd_ws = []
 for ws in range(2):
+    print(ws, '#'*20)
     ul_all_gamma = []
     for gamma in prange(len(gamma_arr)):
         temp = []
         for i in all_e_UL:
             dist_g = interp.interp1d(all_TSS_wt_d2_wt_s[ws][gamma], i[gamma]/1e9)
             temp.append(dist_g(-3.84))
-
+        
+        print(max(temp), gamma_arr[gamma])    
         ul_all_gamma.append(temp)
     all_UL_wd_ws.append(ul_all_gamma)
 e2dfde = all_e_UL[1]
@@ -940,8 +945,11 @@ axs[0].set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = 1}}$', fontdic
 axs[1].set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = \dfrac{1}{d_{DM}^2}}}$' , fontdict=smallerfont)
 axs[2].set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = s_{1400}}}$', fontdict=smallerfont)
 
-
-plt.suptitle('95% UL of Total Energy Flux vs Neutrino Energy', fontweight='bold', fontsize=20, fontfamily='serif')
+if cone_deg == 5:
+    plt.suptitle('95% UL of Total Energy Flux vs Neutrino Energy', fontweight='bold', fontsize=20, fontfamily='serif')
+else: 
+    plt.suptitle('95% UL of Total Energy Flux vs Neutrino Energy\nCone = ' + str(cone_deg) + '$^{\circ}$', fontweight='bold', fontsize=20, fontfamily='serif')
+    
 plt.tight_layout()
 plt.savefig(f'outputs/UL_all_w_model_bins={len(enus)}_C_wmodel_all_{cone_deg}.pdf')
 plt.show()

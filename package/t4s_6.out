@@ -1,0 +1,134 @@
+==========================================
+SLURM_CLUSTER_NAME = paramseva
+SLURM_ARRAY_JOB_ID = 
+SLURM_ARRAY_TASK_ID = 
+SLURM_ARRAY_TASK_COUNT = 
+SLURM_ARRAY_TASK_MAX = 
+SLURM_ARRAY_TASK_MIN = 
+SLURM_JOB_ACCOUNT = iith
+SLURM_JOB_ID = 80293
+SLURM_JOB_NAME = t4s_6
+SLURM_JOB_NODELIST = cn080
+SLURM_JOB_USER = vibhavasu.phy.iith
+SLURM_JOB_UID = 26477
+SLURM_JOB_PARTITION = standard
+SLURM_TASK_PID = 9579
+SLURM_SUBMIT_DIR = /scratch/vibhavasu.phy.iith/IceCube-Package/package
+SLURM_CPUS_ON_NODE = 48
+SLURM_NTASKS = 48
+SLURM_TASK_PID = 9579
+==========================================
+read icdata
+read uptdata
+read eadata
+read mspdata
+##################################################
+Cone angle:  6.0
+
+Number of energy bins:  10000000
+
+Number of phi bins:  1000
+
+Calculating weights...
+
+
+Calculating wt_acc for all pulsars and seasons and gamma
+Calculated wt_acc for all pulsars and seasons and gamma
+
+Calculating Bi for all neutrinos
+
+
+Calculated Bi for all neutrinos
+
+Calculating S_i for all neutrinos and gammas and weighting schemes...
+
+Calculated S_i for all neutrinos and gammas and weighting schemes
+
+Calculating ns_HAT for all gamma and weighting schemes...
+
+
+Calculationed ns_HAT for all gamma and weighting schemes
+
+CALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
+
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+
+CALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
+-5667202.688369328 0.6982071991557572
+wt
+
+-7160829.740467459 0.7420442968446018
+wt
+
+-5639714.718429347 0.2998014981069326
+wt
+
+-7644763.910508133 0.003420594779273787
+wt
+
+3.798215306190736e-27
+3.217418150676352e-27
+1.5246957270175698e-27
+4.361537789208006e-12
+1.3650078065460194e-12
+2.763385290053167e-14
+
+TS_vs_E2dfde_all_w_model_bins=10000000_C_wt_all_psr_wmod1_cone_6.0.pdf
+DONE
+0.6982071991557572 964 3.798215306190736e-08
+0.7420442968446018 958 3.217418150676352e-08
+0.2998014981069326 931 1.5246957270175697e-08
+0.003420594779273787 871 2.900430493863986e-09
+####################################################################################################
+####################################################################################################
+W_MODEL = 1/d2 and s1400
+
+Calculating S_i for all neutrinos and gammas and weighting schemes...
+
+Calculated S_i for all neutrinos and gammas and weighting schemes
+
+Calculating ns_HAT for all gamma and weighting schemes...
+
+
+Calculationed ns_HAT for all gamma and weighting schemes
+
+CALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
+
+ws = 0
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+ws = 1
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+
+CALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
+
+TS_vs_E2dfde_all_w_model_bins=10000000_C_wt_6.0..pdf
+DONE
+2
+-2.7690139071178807e-10 6 1.180516528568813e-19
+-8.175071730905721e-10 1 1.0280447320933161e-19
+-4.570159584795175e-09 0 1e-19
+3
+6.06297234636921e-11 26 2.0526377527092648e-19
+1.2961187678312961e-11 6 1.180516528568813e-19
+-4.4715298131727074e-10 941 2.0104964162604927e-08
+2
+-2.7690139071178807e-10 6 1.180516528568813e-19
+-8.175071730905721e-10 1 1.0280447320933161e-19
+-4.570159584795175e-09 0 1e-19
+3
+6.06297234636921e-11 26 2.0526377527092648e-19
+1.2961187678312961e-11 6 1.180516528568813e-19
+-4.4715298131727074e-10 941 2.0104964162604927e-08
+3.798215306190736e-27
+3.217418150676352e-27
+1.5246957270175698e-27
+done

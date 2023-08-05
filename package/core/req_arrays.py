@@ -80,10 +80,11 @@ icdata = all_data.icdata
 uptdata = all_data.uptdata
 eadata = all_data.eadata
 mspdata = all_data.mspdata
-all_data = []
+# all_data = []
 
 #ICECUBE DATA VECTORS
-icwidths = [int(i) for i in "0 36900 107011 93133 136244 112858 122541 127045 129311 123657 145750".split(' ')]
+# icwidths = [int(i) for i in "0 36900 107011 93133 136244 112858 122541 127045 129311 123657 145750".split(' ')]
+icwidths = all_data.season_length
 # ictimes = [float(i) for i in icdata['MJD[days]']]
 icparts = [np.sum(icwidths[:i]) for i in range(1,len(icwidths)+1)]  #paritions of icdata for each season (IC40, IC59, IC79, IC86_I, IC86_II)
 
@@ -126,7 +127,7 @@ lg = 1 + len(icra) // p
 lnu = len(icra)
 
 deg2rad_var = np.pi/180
-icdata = []
+# icdata = []
 uptdata = []
 eadata = []
 # mspdata = []

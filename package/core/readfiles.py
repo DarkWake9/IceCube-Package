@@ -21,26 +21,35 @@ class Data(): # type: ignore
 
     # def readfiles(self):
         file = self.filenames[0]
-        f = open(os.path.join(self.path, file), 'r')
-        lines = f.readlines()
-        column=lines[0].split()
-        column.pop(0)
+        # f = open(os.path.join(self.path, file), 'r')
+        # lines = f.readlines()
+        # column=lines[0].split()
+        # icdata = []
+        # try:
+        #     column.remove('#')
+        # except:
+        #     pass
+        icdata = pd.read_csv(os.path.join(self.path, file), sep="\s+", comment="#", names="MJD[days]	log10(E/GeV)	AngErr[deg]	RA[deg]	Dec[deg]	Azimuth[deg]	Zenith[deg]".split("\t"), dtype=float, skiprows=1)
         content = []
-        season_length = []
-        for file in self.filenames:
-            f = open(os.path.join(self.path, file), 'r')
-            lines = f.readlines()
-        #print(len(lines) - 1)
-            for line in lines[1:]:
-                content.append(line.split())
-            f.close()
-            season_length.append(len(content))
-        icdata = pd.DataFrame(content, columns=column, dtype=float)#.convert_dtypes(infer_objects=True,convert_integer=True,convert_floating=True)
+        season_length = [len(icdata.index)]
+        for file in self.filenames[1:]:
+        #     f = open(os.path.join(self.path, file), 'r')
+        #     lines = f.readlines()
+        # #print(len(lines) - 1)
+        #     for line in lines[1:]:
+        #         content.append(line.split())
+        #     f.close()
+        #     season_length.append(len(content))
+            content = pd.read_csv(os.path.join(self.path, file), sep="\s+", comment="#", names="MJD[days]	log10(E/GeV)	AngErr[deg]	RA[deg]	Dec[deg]	Azimuth[deg]	Zenith[deg]".split("\t"), dtype=float, skiprows=1)
+            season_length.append(len(content.index))
+            icdata = pd.concat([icdata, content], ignore_index=True)
+        # icdata = pd.DataFrame(content, columns=column, dtype=float)#.convert_dtypes(infer_objects=True,convert_integer=True,convert_floating=True)
+        
         icdata['log10(E/GeV)'] = [float(i) for i in icdata['log10(E/GeV)']]
         icdata['MJD[days]'] = [float(i) for i in icdata['MJD[days]']]
 
         print("read icdata")
-        f.close()
+        # f.close()
         self.icdata = icdata
         self.season_length = season_length
 

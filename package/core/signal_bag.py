@@ -24,7 +24,7 @@ from numba.experimental import jitclass
 import numpy as np
 from scipy.optimize import minimize
 # from core import weights
-from core import weights as weights
+# from core import weights as weights
 from core.req_arrays import *
 from core.stacking_analysis import wall_nu
 import multiprocessing as mul
@@ -157,34 +157,34 @@ def S_ik(nu, weight, w_models, gamma_index, ws):
 
 N_ic = 1134450
 # @jit(nopython=True)
-@vectorize(['float64(int64, int64)'], nopython=True,target='parallel')
-def Bi_stacked_compute(nu, cone=5):
+# @vectorize(['float64(int64, int64)'], nopython=True,target='parallel')
+# def Bi_stacked_compute(nu, cone=5):
 
-    '''
-    Calculates B_i as in EQN 9 of 2205.15963
-    ----------
+#     '''
+#     Calculates B_i as in EQN 9 of 2205.15963
+#     ----------
 
-    Parameters
-    ----------
-    nu : int
-        Index of the neutrino from IceCube sample
-    cone : float
-        Cone angle in degrees.
+#     Parameters
+#     ----------
+#     nu : int
+#         Index of the neutrino from IceCube sample
+#     cone : float
+#         Cone angle in degrees.
     
 
-    Returns
-    -------
-    float
-        Returns the background PDF for the {nu}th neutrino
-    '''
+#     Returns
+#     -------
+#     float
+#         Returns the background PDF for the {nu}th neutrino
+#     '''
 
-    # count = np.sum(np.abs(np.subtract(icdec, icdec[nu])) <= cone)
-    count=0
-    for i in prange(len(icdec)):
-        if abs(icdec[i] - icdec[nu]) <= cone:
-            count+=1
-    binwidth = (np.sin(np.deg2rad(icdec[nu] + cone)) - np.sin(np.deg2rad(icdec[nu] - cone)))*2*np.pi
-    return count/(binwidth * N_ic)  
+#     # count = np.sum(np.abs(np.subtract(icdec, icdec[nu])) <= cone)
+#     count=0
+#     for i in prange(len(icdec)):
+#         if abs(icdec[i] - icdec[nu]) <= cone:
+#             count+=1
+#     binwidth = (np.sin(np.deg2rad(icdec[nu] + cone)) - np.sin(np.deg2rad(icdec[nu] - cone)))*2*np.pi
+#     return count/(binwidth * N_ic)  
 
 
 # @jitclass
@@ -219,14 +219,14 @@ class signals:
         self.all_sig = tmp
         return self.all_sig
 
-    def compute_background(self):
-        pool = mul.Pool(int(mul.cpu_count()*0.9), maxtasksperchild=200)
+    # def compute_background(self):
+    #     pool = mul.Pool(int(mul.cpu_count()*0.9), maxtasksperchild=200)
         
-        op_async = pool.map_async(Bi_stacked_compute, prange(lnu))
-        tmp = op_async.get()
-        pool.close()
-        pool = []
-        op_async = []
-        tmp = np.asfarray(tmp)
-        self.all_bag = tmp
-        return self.all_bag
+    #     op_async = pool.map_async(Bi_stacked_compute, prange(lnu))
+    #     tmp = op_async.get()
+    #     pool.close()
+    #     pool = []
+    #     op_async = []
+    #     tmp = np.asfarray(tmp)
+    #     self.all_bag = tmp
+    #     return self.all_bag

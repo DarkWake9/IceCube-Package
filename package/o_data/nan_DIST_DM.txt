@@ -1,0 +1,23 @@
+distdm_t = dat2['DIST_DM']
+distd = dat2['DIST']
+distdm = []
+for i in range(len(distdm_t)):
+    if distdm_t[i] == '*':
+        if distd[i] != '*':
+            distdm.append(float(distd[i]))
+
+        else:
+            distdm.append(None)
+    
+    else:
+        distdm.append(float(distdm_t[i]))
+c=0
+for i in distdm_t:
+    if i == '*':
+        c+=1
+c
+c=0
+for i in distdm:
+    if i == None:
+        c+=1
+c

@@ -12,7 +12,7 @@
 
 ## Load the python interpreter
 ## module load python
-cd /scratch/vibhavasu.phy.iith/IceCube-Package/package/task4s_pyformat_corrected_sig.py
+cd /scratch/vibhavasu.phy.iith/IceCube-Zhou-data/IceCube-Package/package/
 ## module load conda
 conda activate vibenv
 

@@ -145,8 +145,11 @@ syn_nu_choice = np.random.randint(0, p, n_psrs) #Choose 50 random pulsars from t
 syn_nudec_bin = msdec_bin_indices[syn_nu_choice] #Find the declination bin of the chosen pulsars to be allocated for the synthetic neutrinos
 syn_nu_ra = msra[syn_nu_choice] #Find the right ascension of the chosen pulsars to be allocated for the synthetic neutrinos
 syn_nu_dec = msdec[syn_nu_choice] #Find the declination of the chosen pulsars to be allocated for the synthetic neutrinos
+
+
 phio_const = 4.98 * (10**(-27)) #GeV-1 to ev-1 conversion factor
-# phio_const *= 1e-3
+
+phio_const *= 1e-5
 filenames = ["IC40_exp.csv", "IC59_exp.csv","IC79_exp.csv", "IC86_I_exp.csv", "IC86_II_exp.csv",
         "IC86_III_exp.csv", "IC86_IV_exp.csv", "IC86_V_exp.csv", "IC86_VI_exp.csv", "IC86_VII_exp.csv"]
 
@@ -203,7 +206,7 @@ def get_syn_nu_dec(season_i):
                 temp_dec = np.ones(n_nu_temp, dtype=np.float64) * syn_nu_dec[j]
                 
                 
-                \
+                
                 syn_nu_az, syn_nu_alt = ra_dec_to_azimuth_zenith(temp_ra, temp_dec, mjd)
                 
                 errs = np.random.normal(0, theta_tot/(2**0.5), n_nu_temp)

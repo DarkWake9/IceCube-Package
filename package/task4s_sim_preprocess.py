@@ -53,7 +53,7 @@ syn_nudec_bin = msdec_bin_indices[syn_nu_choice] #Find the declination bin of th
 syn_nu_ra = msra[syn_nu_choice] #Find the right ascension of the chosen pulsars to be allocated for the synthetic neutrinos
 syn_nu_dec = msdec[syn_nu_choice] #Find the declination of the chosen pulsars to be allocated for the synthetic neutrinos
 phio_const = 4.98 * (10**(-27)) #GeV-1 to ev-1 conversion factor
-phio_const *= 1e-5
+# phio_const *= 1e-5
 filenames = ["IC40_exp.csv", "IC59_exp.csv","IC79_exp.csv", "IC86_I_exp.csv", "IC86_II_exp.csv",
         "IC86_III_exp.csv", "IC86_IV_exp.csv", "IC86_V_exp.csv", "IC86_VI_exp.csv", "IC86_VII_exp.csv"]
 

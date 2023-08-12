@@ -54,17 +54,16 @@ if arrg.numbins:
 else:
     pass
 
-n_psrs = 20
+n_psrs = 30
 if arrg.numpulsars:
     n_psrs = arrg.numpulsars
 
 #########################
-print(['#']*50)
+print('#'*50)
 print(f'Generating synthetic neutrinos for {n_psrs} pulsars and {nbins} energy bins')
 
-os.system('python3 task4s_sim_preprocess.py -nb ' + str(int(nbins)) + ' -np ' + str(n_psrs))
-# subprocess.call([sys.executable, './task4s_sim_preprocess.py', '-nb', str(int(nbins))])
-# subprocess.CompletedProcess()
+# os.system('python3 task4s_sim_preprocess.py -nb ' + str(int(nbins)) + ' -np ' + str(n_psrs))
+os.system('python3 task4w_syn_nu_smear.py -nb ' + str(int(nbins)) + ' -np ' + str(n_psrs))
 
 print('\nGenerated synthetic neutrinos')
 print(['#']*50)

@@ -28,7 +28,7 @@
 
 
 from astropy.units import deg, meter
-from astropy.coordinates import SkyCoord, AltAz, EarthLocation
+from astropy.coordinates import ICRS, get_sun, SkyCoord, AltAz, EarthLocation
 from astropy.time import Time
 
 import numpy as np
@@ -51,7 +51,6 @@ print(icwidths)
 parser = ap.ArgumentParser()
 parser.add_argument('-nb', '--numbins', type=int, help='Number of bins', required=False)
 parser.add_argument('-np', '--numpulsars', type=int, help='Number of pulsars for neutrinos to be generated at', required=False)
-parser.add_argument('-lp', '--logphiomul', type=float, help='log10(Phi_0 multiplication factor)', required=False)
 arrg = parser.parse_args()
 
 
@@ -64,16 +63,7 @@ else:
 n_psrs = 30
 if arrg.numpulsars:
     n_psrs = arrg.numpulsars
-    
-    
-phio_const = 4.98 * (10**(-27)) #GeV-1 to ev-1 conversion factor
 
-if arrg.logphiomul:
-    phio_const *= 10**(arrg.logphiomul)
-elif arrg.logphiomul == 'a':
-    phio_const *= 1
-else:
-    pass
 ###########################################################################################
 
 latitude = -89.99
@@ -157,16 +147,18 @@ syn_nu_ra = msra[syn_nu_choice] #Find the right ascension of the chosen pulsars 
 syn_nu_dec = msdec[syn_nu_choice] #Find the declination of the chosen pulsars to be allocated for the synthetic neutrinos
 
 
+phio_const = 4.98 * (10**(-27)) #GeV-1 to ev-1 conversion factor
 
+# phio_const /= 1e-1
 filenames = ["IC40_exp.csv", "IC59_exp.csv","IC79_exp.csv", "IC86_I_exp.csv", "IC86_II_exp.csv",
         "IC86_III_exp.csv", "IC86_IV_exp.csv", "IC86_V_exp.csv", "IC86_VI_exp.csv", "IC86_VII_exp.csv"]
 
 
-print("Phio constant mult: ", arrg.logphiomul)
-print("Phio constant: ", phio_const)
 
 
-def get_syn_nu_dec(season_i):
+
+# def get_syn_nu_dec(season_i):
+for season_i in range(10):
 
 
     icdata_k = pd.read_csv("./o_data/icecube_10year_ps/events/" + filenames[season_i], sep="\s+", comment="#", names="MJD[days]	log10(E/GeV)	AngErr[deg]	RA[deg]	Dec[deg]	Azimuth[deg]	Zenith[deg]".split("\t"), dtype=float)
@@ -185,9 +177,11 @@ def get_syn_nu_dec(season_i):
         # print(temp1)
     enus_smear_bin_min = icsmear_k_log_E[ np.digitize(np.log10(enus/1e9), icsmear_k_log_E) - 1]
     nu_smear_dec_bin_min = icsmear_k_dec[ np.digitize(syn_nu_dec, icsmear_k_dec) - 1]
-    n_nu = 0
-    for i in tqdm(range(len(enus))):    
-        
+    
+    
+    # for i in tqdm(range(len(enus))):
+    def temp_func(i):    
+        n_nu = 0
         temp1 = icsmear_k[icsmear_k["log10(E_nu/GeV)_min"] == enus_smear_bin_min[i]]
         
         for j in range(len(syn_nu_dec)):
@@ -202,9 +196,8 @@ def get_syn_nu_dec(season_i):
             # No.of neutrinos to be generated in this season, in this energy bin, in this declination bin
             n_nu_temp = t_upt[season_i] * earea[ea_season(season_i)][syn_nudec_bin[j] * 40 + enus_bin_indices[i]] * enus[i] * phio_const * ((enus[i] / 10**14) ** gamma_arr[2])
             
-            
+            temp3 = []
             n_nu_temp = int(n_nu_temp)
-            # print(n_nu_temp)
             n_nu += n_nu_temp
             if n_nu_temp > 0:
                 mjd = np.random.uniform(min_start, max_stop, n_nu_temp)
@@ -248,28 +241,43 @@ def get_syn_nu_dec(season_i):
                 
                 
                 temp3 = pd.DataFrame(np.vstack([mjd, -1 * np.ones(len(mjd)), errs, syn_ra, syn_dec, syn_nu_az, syn_nu_alt]).T)
-                temp3.columns = "MJD[days]	log10(E/GeV)	AngErr[deg]	RA[deg]	Dec[deg]	Azimuth[deg]	Zenith[deg]".split('\t')
-                
-                icdata_k = pd.concat([icdata_k, temp3], ignore_index=True, axis=0)
+                print(type(temp3))
+                # icdata_k = pd.concat([icdata_k, temp3], ignore_index=True)
                 
                 
             else:
-                continue
+                pass
             
-    icdata_k.to_csv("./data/icecube_10year_ps/events/" + filenames[season_i], sep="\t", index=False)
+        print(n_nu)
+        return temp3
+    
+    pool2 = mul.Pool(int(0.6 * mul.cpu_count()))
+    op_async_1 = pool2.map_async(temp_func, range(len(enus)))
+    drive_1 = op_async_1.get()
+    pool2.close()
+    pool2.join()
+    # pool2.wait()
+    print("Done with season", season_i)
+    print(type(drive_1))
+    print(type(drive_1[0]))
+    for i in range(len(drive_1)):
+        icdata_k = pd.concat([icdata_k, drive_1[i]], ignore_index=True)
+    icdata_k.to_csv("./data/icecube_10year_ps/irfs/" + filenames[season_i], sep="\t", index=False)
     print("Done with season", season_i)
     
     print(season_i, len(icdata_k.index))
     print("No.of neutrinos generated:")
     print(n_nu)
-    return 0
+    # return 0
     
-pool = mul.Pool(int(mul.cpu_count()))
-op_async = pool.map_async(get_syn_nu_dec, tqdm(range(10)))
-drive = op_async.get()
-pool.close()
-pool.join()
-op_async = []
+# if __name__ == "__main__":
+#     pool = mul.Pool(int(0.4 * mul.cpu_count()))
+#     op_async = pool.map_async(get_syn_nu_dec, tqdm(range(10)))
+#     drive = op_async.get()
+#     pool.close()
+#     pool.join()
+#     op_async = []
+
 # print("Generated Synthetic neutrinos and added to original IceCube Data")
     
 

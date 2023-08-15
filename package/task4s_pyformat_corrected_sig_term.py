@@ -1,6 +1,5 @@
-import os
-os.system("cp -r ./o_data/icecube_10year_ps/events/ ./data/icecube_10year_ps/events/")
 import numpy as np
+import os
 import multiprocessing as mul
 import matplotlib.pyplot as plt
 from numba import jit, njit, prange, set_num_threads, vectorize

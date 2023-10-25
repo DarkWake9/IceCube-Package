@@ -134,6 +134,7 @@ class Data(): # type: ignore
 
         #IMPORTING MSPDATA
         mspdata = pd.read_csv(master_path + "ATNF.csv")
+        # mspdata = pd.read_csv(master_path + "ATNF_rem_psr_s1400_1050.csv") ##25102023 REMOVED PULSARS WITH S1400 = 1050
         # mspdata = pd.read_csv(master_path + "ATNF_max5.txt")
         # mspdata = mspdata[mspdata['DIST_DM'] != '*']
         # mspdata = mspdata[mspdata['S1400'] != '*']

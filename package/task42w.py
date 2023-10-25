@@ -476,7 +476,7 @@ axs.set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = 1}}$', fontdict=s
 
 # for i in range(3):
     
-axs.legend(prop={'size':14}, framealpha=0, loc='lower left')
+axs.legend(prop={'size':14}, framealpha=0, loc='upper left')
 # axs.hlines(-3.84, 1e-20, 1e-5, linestyles='dashed', lw=2.2, ls='-.', label='95 % UPPER LIMIT $TS = -3.84$', color='lightcoral')
 axs.set_xscale('log')
 axs.set_xlabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 100 TeV ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
@@ -488,6 +488,7 @@ axs.yaxis.set_tick_params(labelsize=15)
 tempt = [all_TSS_wmod1[i][np.nanargmax(all_TSS_wmod1[i])] for i in range(len(gamma_arr))]
 axs.set_ylim(-20, max(tempt))
 axs.set_xlim(0.95e-19, 1e-6)
+axs.vlines(x = 4.98e-9, ymin=-21, ymax=max(tempt) + 10, label='$\phi_0 = 4.98 x 10^{-19}$',lw=2.2, ls='--', color='black')
 
 
 plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')

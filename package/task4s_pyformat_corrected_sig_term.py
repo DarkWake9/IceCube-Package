@@ -417,7 +417,14 @@ for gamma in prange(len(gamma_arr)):
         return TS_st_vec(nsa, t2mp, all_Bi, Ns)      #No units
     temp = []
     for phi in tqdm(prange(len(phio))):
-        temp.append(TS_for_all_psrs2(arr[gamma]*phio[phi]))
+        try:
+            temp.append(TS_for_all_psrs2(arr[gamma]*phio[phi]))
+        except:
+            temp.append(TS_st_vec(np.float64(arr[gamma]*phio[phi]), t2mp, all_Bi.astype(np.float64), Ns))
+            print(np.shape(arr[gamma]*phio[phi]))
+            print(np.shape(t2mp))
+            exit()
+        
     all_TSS_wmod1.append(temp)
     temp = []
 
@@ -517,7 +524,7 @@ plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize
 
 plt.tight_layout()
 plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wt_all_psr_wmod1_cone_{cone_deg}.pdf')
-# plt.show()
+# # plt.show()
 print(f'\nTS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wt_all_psr_wmod1_cone_{cone_deg}.pdf\nDONE')
 
 
@@ -535,7 +542,7 @@ for gamma in range(1, len(gamma_arr)):
 axs.set_xscale('log')
 axs.set_yscale('log')
 axs.set_xlabel('E$_{\u03BD}$ (GeV)', fontdict=axesfont)
-axs.set_ylabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 100 TeV ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
+axs.set_ylabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
 axs.xaxis.set_tick_params(labelsize=15)
 axs.yaxis.set_tick_params(labelsize=15)
 
@@ -548,7 +555,7 @@ axs.set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = 1}}$', fontdict=s
 plt.suptitle('95% UL of Total Energy Flux vs Neutrino Energy', fontweight='bold', fontsize=20, fontfamily='serif')
 plt.tight_layout()
 plt.savefig(f'outputs/UL_all_w_model_bins={len(enus)}_C_wt_all_psr_wmod1_cone_{cone_deg}.pdf')
-plt.show()
+# plt.show()
 
 
 for i in all_TSS_wmod1:
@@ -750,8 +757,8 @@ for i in range(2):
 
         plt.tight_layout()
         plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel{i+2}_{cone_deg}.pdf')
-# plt.show()
-print(f'\nTS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wt_{cone_deg}..pdf\nDONE')
+# # plt.show()
+print(f'\nTS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wt_{cone_deg}.pdf\nDONE')
 
 
 #after wt_acc mod
@@ -829,7 +836,7 @@ for i in range(1, 3):
 if cone_deg == 5:
     plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
 else:
-    plt.suptitle('TS vs Total Neutrino Flux at 100 TeV\nCone = ' + str(cone_deg) + '$^{\circ}$', fontweight='bold', fontsize=20, fontfamily='serif')
+    plt.suptitle('TS vs Total Neutrino Flux at 100 TeV (' + str(cone_deg) + '$^{\circ}$)', fontweight='bold', fontsize=20, fontfamily='serif')
 
 plt.tight_layout()
 plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel_all_{cone_deg}.pdf')
@@ -900,6 +907,15 @@ for ws in range(2):
         ul_all_gamma.append(temp)
     all_UL_wd_ws.append(ul_all_gamma)
 e2dfde = all_e_UL[1]
+
+f = open('outputs/UL_ALL_w.txt', 'w')
+f.write(str(3 * all_UL_wmodel1[2][1]))
+f.write(str(3 * all_UL_wd_ws[0][2][1]))
+f.write(str(3 * all_UL_wd_ws[1][2][1]))
+f.close()
+
+pickle.dump(all_UL_wmodel1, open('outputs/UL_ALL_wmodel1.txt', 'wb'))
+pickle.dump(all_UL_wd_ws, open('outputs/UL_ALL_wd_ws0.txt', 'wb'))
 # plt.style.use('default')
 
 #SIMILAR PLOTS FOR 95% UPPER LIMIT 
@@ -914,7 +930,7 @@ for gamma in range(1, len(gamma_arr)):
 axs[0].set_xscale('log')
 axs[0].set_yscale('log')
 axs[0].set_xlabel('E$_{\u03BD}$ (GeV)', fontdict=axesfont)
-axs[0].set_ylabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 100 TeV ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
+axs[0].set_ylabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
 axs[0].xaxis.set_tick_params(labelsize=15)
 axs[0].yaxis.set_tick_params(labelsize=15)
 
@@ -929,12 +945,12 @@ for i in range(1,3):
     for gamma in range(1, len(gamma_arr)):
 
         axs[i].plot(np.divide(e_decade, 1e9), np.multiply(all_UL_wd_ws[i-1][gamma], 3), label='$\Gamma$ = ' + str(gamma_arr[gamma]), lw=2.2, ls='-')# + ' with wt')    #in GeV
-
+        # axs[i].scatter(np.divide(e_decade, 1e9), np.multiply(all_UL_wd_ws[i-1][gamma], 3))
     
     axs[i].set_xscale('log')
     axs[i].set_yscale('log')
     axs[i].set_xlabel('E$_{\u03BD}$ (GeV)', fontdict=axesfont)
-    axs[i].set_ylabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 100 TeV ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
+    axs[i].set_ylabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
     axs[i].xaxis.set_tick_params(labelsize=15)
     axs[i].yaxis.set_tick_params(labelsize=15)
     
@@ -948,11 +964,12 @@ axs[2].set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = s_{1400}}}$', 
 if cone_deg == 5:
     plt.suptitle('95% UL of Total Energy Flux vs Neutrino Energy', fontweight='bold', fontsize=20, fontfamily='serif')
 else: 
-    plt.suptitle('95% UL of Total Energy Flux vs Neutrino Energy\nCone = ' + str(cone_deg) + '$^{\circ}$', fontweight='bold', fontsize=20, fontfamily='serif')
+    plt.suptitle('95% UL of Total Energy Flux vs Neutrino Energy (' + str(cone_deg) + '$^{\circ}$)', fontweight='bold', fontsize=20, fontfamily='serif')
     
 plt.tight_layout()
 plt.savefig(f'outputs/UL_all_w_model_bins={len(enus)}_C_wmodel_all_{cone_deg}.pdf')
-plt.show()
+# plt.show()
+
 
 
 

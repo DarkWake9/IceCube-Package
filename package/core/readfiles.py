@@ -133,7 +133,8 @@ class Data(): # type: ignore
         # print("read mspdata")
 
         #IMPORTING MSPDATA
-        mspdata = pd.read_csv(master_path + "ATNF.csv")
+        # mspdata = pd.read_csv(master_path + "ATNF.csv")
+        mspdata = pd.read_csv(master_path + 'ATNF_Gl_less_than_15.csv') #05012024 - REMOVED PULSARS WITH GALACTIC LATITUDE > 15 degrees
         # mspdata = pd.read_csv(master_path + "ATNF_rem_psr_s1400_1050.csv") ##25102023 REMOVED PULSARS WITH S1400 = 1050
         # mspdata = pd.read_csv(master_path + "ATNF_max5.txt")
         # mspdata = mspdata[mspdata['DIST_DM'] != '*']

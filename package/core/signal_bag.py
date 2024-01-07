@@ -155,7 +155,7 @@ def S_ik(nu, weight, w_models, gamma_index, ws):
 
 
 
-N_ic = 1134450
+
 # @jit(nopython=True)
 # @vectorize(['float64(int64, int64)'], nopython=True,target='parallel')
 # def Bi_stacked_compute(nu, cone=5):

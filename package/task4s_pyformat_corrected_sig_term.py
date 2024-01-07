@@ -65,7 +65,7 @@ for i in prange(p):
 
 for i in prange(len(enus)):
     enus_bin_indices[i] = np.digitize(enus[i], e_nu_wall) - 1
-gamma_arr = [-2, -2.2, -2.53, -3]
+gamma_arr = [-2.2, -2, -2.53, -3]
 phio = np.logspace(-38, -26, 1000) #CHANGING TO LINEAR BINS RESULTS IN STRAIGHT LINES
 
 # print("\nNumber of threads: ", num_threads)
@@ -264,7 +264,7 @@ def Bi_stacked_compute(nu, cone=cone):
         if abs(icdec[i] - icdec[nu]) <= cone:
             count+=1
     binwidth = (np.sin(np.deg2rad(icdec[nu] + cone)) - np.sin(np.deg2rad(icdec[nu] - cone)))*2*np.pi
-    return count/(binwidth * N_ic)           #No units or sr**-1
+    return count/(binwidth * lnu)           #No units or sr**-1
 #Pickle
 if os.path.isfile(altier_path[0] + f'all_Bi_C_cone_{cone_deg}.pkl'):
     print("Loading all_Bi from pickle...")
@@ -315,13 +315,13 @@ def Pr(x, Ns, S, B):
 
 
 
-@njit(nogil=True)
+# @njit(nogil=True)
 def TS_st_vec(x, S, B, Ns):
     nsN = x/Ns
     pr = np.add(np.multiply(nsN , S), np.multiply(np.subtract(1, nsN), B))
     return np.sum(np.asfarray(2*np.log(pr/B)))
 
-lnu = 1134450
+lnu = len(icra)
 Ns = lnu#np.count_nonzero(nuind+1)
 
 
@@ -419,11 +419,13 @@ for gamma in prange(len(gamma_arr)):
     for phi in tqdm(prange(len(phio))):
         try:
             temp.append(TS_for_all_psrs2(arr[gamma]*phio[phi]))
+            # print('\a')
         except:
-            temp.append(TS_st_vec(np.float64(arr[gamma]*phio[phi]), t2mp, all_Bi.astype(np.float64), Ns))
-            print(np.shape(arr[gamma]*phio[phi]))
-            print(np.shape(t2mp))
-            exit()
+            temp_dd = TS_st_vec(np.round(np.float64(arr[gamma]*phio[phi]), 6), t2mp, all_Bi, Ns)
+            temp.append(temp_dd)
+            # print(np.shape(arr[gamma]*phio[phi]))
+            # print(np.shape(t2mp))
+            # exit()
         
     all_TSS_wmod1.append(temp)
     temp = []
@@ -447,7 +449,7 @@ all_TSS_wmod1 = np.asarray(all_TSS_wmod1)
 gamma_arr = np.asarray(gamma_arr)
 
 all_e_UL = []
-e_decade = [1e13, 1e14, 1e15, 1e16, 1e17]
+e_decade = [1e12, 1e13, 1e14, 1e15, 1e16]
 for e_UL in e_decade:
     e2dfde = []
 
@@ -698,7 +700,15 @@ for ws in prange(2):
             return TS_st_vec(nsa, t2mp, all_Bi, Ns)      #No units
         temp = []
         for phi in tqdm(prange(len(phio))):
-            temp.append(TS_for_all_psrs2(arr[gamma][ws]*phio[phi]))
+            try:
+                temp.append(TS_for_all_psrs2(arr[gamma][ws]*phio[phi]))
+            
+            except:
+                temp_dd = TS_st_vec(np.float64(arr[gamma][ws]*phio[phi]), t2mp, all_Bi, Ns)
+                temp.append(temp_dd)    
+        
+        # for phi in tqdm(prange(len(phio))):
+        #     temp.append(TS_for_all_psrs2(arr[gamma][ws]*phio[phi]))
         tmpp.append(temp)
         temp = []
     all_TSS_wt_d2_wt_s.append(tmpp)
@@ -805,9 +815,9 @@ axs[0].set_xlabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 1
 axs[0].set_ylabel('TS', fontdict=axesfont, fontsize=20)
 axs[0].xaxis.set_tick_params(labelsize=15)
 axs[0].yaxis.set_tick_params(labelsize=15)
-axs[0].legend(prop={'size':15}, framealpha=0, loc='lower left')
+axs[0].legend(prop={'size':15}, framealpha=0, loc='lower right')
 axs[0].set_ylim(-20, 5)
-axs[0].set_xlim(0.95e-19, 1e-6)
+axs[0].set_xlim(0.95e-14, 1e-6)
 
 for i in range(1, 3):
 
@@ -831,7 +841,7 @@ for i in range(1, 3):
         axs[i].yaxis.set_tick_params(labelsize=15)
         axs[i].legend(prop={'size':15}, framealpha=0, loc='lower left')
         axs[i].set_ylim(-20, 5)
-        axs[i].set_xlim(0.95e-19, 1e-6)
+        axs[i].set_xlim(0.95e-14, 1e-6)
 
 if cone_deg == 5:
     plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
@@ -846,7 +856,7 @@ plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel_all_{co
 
 
 all_e_UL_wmodel1 = []
-e_decade = [1e13, 1e14, 1e15, 1e16, 1e17]
+e_decade = [1e12, 1e13, 1e14, 1e15, 1e16]
 for e_UL in e_decade:
     e2dfde = []
 
@@ -878,7 +888,7 @@ for gamma in prange(len(gamma_arr)):
 
 
 all_e_UL = []
-e_decade = [1e13, 1e14, 1e15, 1e16, 1e17]
+e_decade = [1e12, 1e13, 1e14, 1e15, 1e16]
 for e_UL in e_decade:
     e2dfde = []
 

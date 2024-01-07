@@ -6,17 +6,17 @@ SLURM_ARRAY_TASK_COUNT =
 SLURM_ARRAY_TASK_MAX = 
 SLURM_ARRAY_TASK_MIN = 
 SLURM_JOB_ACCOUNT = iith
-SLURM_JOB_ID = 86854
+SLURM_JOB_ID = 127349
 SLURM_JOB_NAME = t4s_7
-SLURM_JOB_NODELIST = cn090
+SLURM_JOB_NODELIST = cn058
 SLURM_JOB_USER = vibhavasu.phy.iith
 SLURM_JOB_UID = 26477
 SLURM_JOB_PARTITION = standard
-SLURM_TASK_PID = 32344
+SLURM_TASK_PID = 23632
 SLURM_SUBMIT_DIR = /scratch/vibhavasu.phy.iith/IceCube-Zhou-data/IceCube-Package/package
 SLURM_CPUS_ON_NODE = 48
 SLURM_NTASKS = 48
-SLURM_TASK_PID = 32344
+SLURM_TASK_PID = 23632
 ==========================================
 read icdata
 read uptdata
@@ -34,12 +34,20 @@ Calculating weights...
 
 Loading wt_acc from pickle
 Loaded wt_acc from pickle with nbins=  10000000
-Loading all_Bi from pickle...
-Loaded all_Bi from pickle
-Loading all_Si_ws_g_s from pickle
-Loaded all_Si_ws_g_s from pickle with nbins = 10000000
-Loading ns_hat from pickle...
-Loaded ns_hat from pickle with nbins = 10000000
+
+Calculating Bi for all neutrinos
+
+
+Calculated Bi for all neutrinos
+
+Calculating S_i for all neutrinos and gammas and weighting schemes...
+
+Calculated S_i for all neutrinos and gammas and weighting schemes
+
+Calculating ns_HAT for all gamma and weighting schemes...
+
+
+Calculationed ns_HAT for all gamma and weighting schemes
 
 CALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
 
@@ -49,26 +57,29 @@ gamma = 2
 gamma = 3
 
 CALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
-3.798215306190736e-27
-3.217418150676352e-27
-1.5246957270175698e-27
-8.708431497690724e-12
-3.7982153061907365e-12
-5.479472336900292e-13
+4.361537789208006e-27
+5.148867450137487e-27
+2.1248453524988698e-27
+1.3556017853293662e-11
+6.078323128297212e-12
+1.0642092440647268e-12
 
 TS_vs_E2dfde_all_w_model_bins=10000000_C_wt_all_psr_wmod1_cone_7.0.pdf
 DONE
-2.4967711839202287 964 3.798215306190736e-08
-2.936727518271162 958 3.217418150676352e-08
-2.3201755453658546 931 1.5246957270175697e-08
-1.3151583129740938 871 2.900430493863986e-09
+5.761561694591764 969 4.361537789208006e-08
+4.920468503904335 975 5.148867450137487e-08
+5.446135590680514 943 2.12484535249887e-08
+4.432269767899115 883 4.042095839796285e-09
 ####################################################################################################
 ####################################################################################################
 W_MODEL = 1/d2 and s1400
 Loading all_Si_ws_g_s from pickle
 Loaded all_Si_ws_g_s from pickle with nbins = 10000000
-Loading ns_hat from pickle...
-Loaded ns_hat from pickle with nbins = 10000000
+
+Calculating ns_HAT for all gamma and weighting schemes...
+
+
+Calculationed ns_HAT for all gamma and weighting schemes
 
 CALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
 
@@ -85,23 +96,23 @@ gamma = 3
 
 CALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
 
-TS_vs_E2dfde_all_w_model_bins=10000000_C_wt_7.0..pdf
+TS_vs_E2dfde_all_w_model_bins=10000000_C_wt_7.0.pdf
 DONE
-3.798215306190736e-27
-3.217418150676352e-27
-1.5246957270175698e-27
-2.4672722452706286e-11 -2.0
-3.4964132178439985e-11 -2.2
-3.420906339018472e-11 -2.53
-1.650797164118948e-11 -3.0
+4.361537789208006e-27
+5.148867450137487e-27
+2.1248453524988698e-27
+4.6553245476133816e-11 -2.2
+3.247572446457851e-11 -2.0
+4.832757304325e-11 -2.53
+2.5462909741549445e-11 -3.0
 0 ####################
-1.2131636606437528e-09 -2.0
-1.5131283833835372e-09 -2.2
-1.4655723559811987e-09 -2.53
-7.675569149847495e-10 -3.0
+1.6168669253010258e-09 -2.2
+1.254583179642185e-09 -2.0
+1.620975092057009e-09 -2.53
+8.712175867516334e-10 -3.0
 1 ####################
-8.608289099850933e-09 -2.0
-1.3708926006485935e-08 -2.2
-1.5472589091182286e-08 -2.53
-8.566714601075709e-09 -3.0
+2.208890169159708e-09 -2.2
+1.7168667322355708e-09 -2.0
+2.1867303575334677e-09 -2.53
+1.1587839885991388e-09 -3.0
 done

@@ -154,39 +154,6 @@ def S_ik(nu, weight, w_models, gamma_index, ws):
 
 
 
-
-
-# @jit(nopython=True)
-# @vectorize(['float64(int64, int64)'], nopython=True,target='parallel')
-# def Bi_stacked_compute(nu, cone=5):
-
-#     '''
-#     Calculates B_i as in EQN 9 of 2205.15963
-#     ----------
-
-#     Parameters
-#     ----------
-#     nu : int
-#         Index of the neutrino from IceCube sample
-#     cone : float
-#         Cone angle in degrees.
-    
-
-#     Returns
-#     -------
-#     float
-#         Returns the background PDF for the {nu}th neutrino
-#     '''
-
-#     # count = np.sum(np.abs(np.subtract(icdec, icdec[nu])) <= cone)
-#     count=0
-#     for i in prange(len(icdec)):
-#         if abs(icdec[i] - icdec[nu]) <= cone:
-#             count+=1
-#     binwidth = (np.sin(np.deg2rad(icdec[nu] + cone)) - np.sin(np.deg2rad(icdec[nu] - cone)))*2*np.pi
-#     return count/(binwidth * N_ic)  
-
-
 # @jitclass
 class signals:
 

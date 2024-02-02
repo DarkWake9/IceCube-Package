@@ -45,6 +45,8 @@ os.system("cp -r ./o_data/icecube_10year_ps/events/ ./data/icecube_10year_ps/")
 from core.signal_bag import *
 from core.stacking_analysis import *
 from core.req_arrays import *
+import time
+print("Original IceCube Data copied to data/icecube_10year_ps/events/")
 print(icwidths)
 
 ###########################################################################################
@@ -66,7 +68,7 @@ if arrg.numpulsars:
     n_psrs = arrg.numpulsars
     
     
-phio_const = 4.98 * (10**(-27)) #GeV-1 to ev-1 conversion factor
+phio_const = 4.98 * (10**(-27)) #GeV-1 to ev-1 converted
 
 if arrg.logphiomul:
     phio_const *= 10**(arrg.logphiomul)
@@ -262,6 +264,7 @@ def get_syn_nu_dec(season_i):
     print(season_i, len(icdata_k.index))
     print("No.of neutrinos generated:")
     print(n_nu)
+    time.sleep(5)
     return 0
     
 pool = mul.Pool(int(mul.cpu_count()))

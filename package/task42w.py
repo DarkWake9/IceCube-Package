@@ -9,7 +9,7 @@ import pickle
 import scipy.stats as st
 import scipy.interpolate as interp
 import argparse as ap
-
+import time
 
 
 ################################################################################################################################
@@ -71,7 +71,7 @@ os.system('python3 task4w_syn_nu_smear.py -nb ' + str(int(nbins)) + ' -np ' + st
 
 print('\nGenerated synthetic neutrinos')
 print('#'*50)
-
+time.sleep(5)
 ################################################################################################################################
 
 from core.signal_bag import *
@@ -91,7 +91,7 @@ for i in prange(p):
 
 for i in prange(len(enus)):
     enus_bin_indices[i] = np.digitize(enus[i], e_nu_wall) - 1
-gamma_arr = [-2, -2.2, -2.53, -3]
+gamma_arr = [-2.2, -2, -2.53, -3]
 phio = np.logspace(-48, -26, 1000) #CHANGING TO LINEAR BINS RESULTS IN STRAIGHT LINES
 
 # print("\nNumber of threads: ", num_threads)
@@ -227,6 +227,12 @@ def Sik_sing_s_g(gamma_index, ws):#, wt_acc=wt_acc, w_models=w_models):
 
     Parameters
     ----------
+    weight : array
+         weights of the pulsars
+
+    season : int
+        Season of the neutrino
+
     gamma_index : int
         Index of the gamma value in the gamma array
 
@@ -252,7 +258,7 @@ def Sik_sing_s_g(gamma_index, ws):#, wt_acc=wt_acc, w_models=w_models):
 
 
 @vectorize(['float64(int64, int64)'], nopython=True,target='parallel')
-def Bi_stacked_compute(nu, cone=cone_deg):
+def Bi_stacked_compute(nu, cone=cone):
 
     '''
     Calculates B_i as in EQN 9 of 2205.15963
@@ -278,7 +284,7 @@ def Bi_stacked_compute(nu, cone=cone_deg):
         if abs(icdec[i] - icdec[nu]) <= cone:
             count+=1
     binwidth = (np.sin(np.deg2rad(icdec[nu] + cone)) - np.sin(np.deg2rad(icdec[nu] - cone)))*2*np.pi
-    return count/(binwidth * N_ic)           #No units or sr**-1
+    return count/(binwidth * lnu)           #No units or sr**-1
 
 
 print("\nCalculating Bi for all neutrinos\n")
@@ -479,8 +485,8 @@ axs.set_title('Weighting scheme:  $\mathsf{\mathbf{w_{model} = 1}}$', fontdict=s
 axs.legend(prop={'size':14}, framealpha=0, loc='upper left')
 # axs.hlines(-3.84, 1e-20, 1e-5, linestyles='dashed', lw=2.2, ls='-.', label='95 % UPPER LIMIT $TS = -3.84$', color='lightcoral')
 axs.set_xscale('log')
-axs.set_xlabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 100 TeV ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$ )', fontdict=axesfont)
-axs.set_ylabel('TS', fontdict=axesfont, fontsize=20)
+axs.set_xlabel('$\mathsf{\mathbf{E^2_{\u03BD} \dfrac{dF}{dE_{\u03BD}}}}$ at 100 TeV ($\mathsf{\mathbf{GeV}}$ $\mathsf{\mathbf{s^{-1}}}$ $\mathsf{\mathbf{cm^{-2}}}$)', fontdict=axesfont)
+axs.set_ylabel('$\mathbf{TS_{max}}$', fontdict=axesfont)
 axs.xaxis.set_tick_params(labelsize=15)
 axs.yaxis.set_tick_params(labelsize=15)
 
@@ -491,9 +497,9 @@ axs.set_xlim(0.95e-19, 1e-6)
 axs.vlines(x = 4.98e-9, ymin=-21, ymax=max(tempt) + 10, label='$\phi_0 = 4.98 x 10^{-19}$',lw=2.2, ls='--', color='black')
 
 
-plt.suptitle('TS vs Total Neutrino Flux at 100 TeV', fontweight='bold', fontsize=20, fontfamily='serif')
+# plt.suptitle('TS vs Total Neutrino Flux', fontweight='bold', fontsize=20, fontfamily='serif')
 
 plt.tight_layout()
-plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_{n_psrs}_psrs_{phi_mul}_phi_fac_smeared.pdf')
+plt.savefig(f'outputs/TS_vs_E2dfde_w_model=1_bins={len(enus)}_{n_psrs}_psrs_{phi_mul}_phi_fac_smeared.pdf')
 # plt.show()
-print(f'\nTS_vs_E2dfde_all_w_model_bins={len(enus)}_{n_psrs}_psrs_{phi_mul}_phi_fac_smeared.pdf\nDONE')
+print(f'\nTS_vs_E2dfde_w_model=1_bins={len(enus)}_{n_psrs}_psrs_{phi_mul}_phi_fac_smeared.pdf\nDONE')

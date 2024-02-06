@@ -1,0 +1,122 @@
+==========================================
+SLURM_CLUSTER_NAME = paramseva
+SLURM_ARRAY_JOB_ID = 
+SLURM_ARRAY_TASK_ID = 
+SLURM_ARRAY_TASK_COUNT = 
+SLURM_ARRAY_TASK_MAX = 
+SLURM_ARRAY_TASK_MIN = 
+SLURM_JOB_ACCOUNT = iith
+SLURM_JOB_ID = 136045
+SLURM_JOB_NAME = t4s_3
+SLURM_JOB_NODELIST = cn049
+SLURM_JOB_USER = vibhavasu.phy.iith
+SLURM_JOB_UID = 26477
+SLURM_JOB_PARTITION = standard
+SLURM_TASK_PID = 23633
+SLURM_SUBMIT_DIR = /scratch/vibhavasu.phy.iith/IceCube-Zhou-data/IceCube-Package/package
+SLURM_CPUS_ON_NODE = 48
+SLURM_NTASKS = 48
+SLURM_TASK_PID = 23633
+==========================================
+read icdata
+read uptdata
+read eadata
+read mspdata
+##################################################
+Cone angle:  3.0
+
+Number of energy bins:  10000000
+
+Number of phi bins:  1000
+
+Calculating weights...
+
+
+Calculating wt_acc for all pulsars and seasons and gamma
+Calculated wt_acc for all pulsars and seasons and gamma
+
+Calculating Bi for all neutrinos
+
+
+Calculated Bi for all neutrinos
+
+Calculating S_i for all neutrinos and gammas and weighting schemes...
+
+Calculated S_i for all neutrinos and gammas and weighting schemes
+
+Calculating ns_HAT for all gamma and weighting schemes...
+
+
+Calculationed ns_HAT for all gamma and weighting schemes
+
+CALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
+
+(4, 3)
+ws = 0
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+ws = 1
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+ws = 2
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+
+CALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS
+Calculating wt_acc for all pulsars and seasons and gamma
+Calculated wt_acc for all pulsars and seasons and gamma
+
+Calculating S_i for all neutrinos and gammas and weighting schemes...
+
+Calculated S_i for all neutrinos and gammas and weighting schemes
+
+Calculating ns_HAT for all gamma and weighting schemes...
+
+
+Calculationed ns_HAT for all gamma and weighting schemes
+
+CALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR UNIFORM WEIGHTS
+
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+
+CALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR UNIFORM WEIGHTS
+Calculating wt_acc for all pulsars and seasons and gamma
+Calculated wt_acc for all pulsars and seasons and gamma
+
+Calculating S_i for all neutrinos and gammas and weighting schemes...
+
+Calculated S_i for all neutrinos and gammas and weighting schemes
+
+Calculating ns_HAT for all gamma and weighting schemes...
+
+
+Calculationed ns_HAT for all gamma and weighting schemes
+
+CALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR 1/D2 AND S1400 WEIGHTS
+
+ws = 0
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+ws = 1
+gamma = 0
+gamma = 1
+gamma = 2
+gamma = 3
+
+CALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR 1/D2 AND S1400 WEIGHTS
+(4, 1000)
+(2, 4, 1000)
+
+TS_vs_E2dfde_bins=10000000_C_3.0_mixed_psr.pdf
+DONE

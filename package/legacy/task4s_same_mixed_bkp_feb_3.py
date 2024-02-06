@@ -107,10 +107,10 @@ def psr_wt_sing_gamma(psrno,gamma, season):
 
     return np.trapz(wt_ac_temp, enus)
 
-if f'wt_acc_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl' in os.listdir(altier_path[0]):
+if f'wt_acc_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl' in os.listdir(altier_path[0]):
     print("Loading wt_acc from pickle")
     
-    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl', 'rb') as f:
+    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl', 'rb') as f:
         wt_acc = pickle.load(f)
     
     
@@ -128,7 +128,7 @@ else:
         wt_allpsr = []
         
     wt_acc = np.asfarray(wt_acc, dtype=np.float64)
-    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl', 'wb') as f:
+    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl', 'wb') as f:
         pickle.dump(wt_acc, f)
     print("Calculated wt_acc for all pulsars and seasons and gamma")
 season_walls = np.array(icparts.copy(), dtype=np.float64)
@@ -250,9 +250,9 @@ def ns_HAT_all_season_all_psr_sing_gamma_wt_wtht_weights(gamma, e_nus=enus, phi0
     return np.array([np.sum(ns_hat_wt)], dtype=np.float64)
 
 all_Si_ws_g_s = []
-if os.path.isfile(altier_path[0] + f'all_Si_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl'):
+if os.path.isfile(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl'):
     print("Loading all_Si_ws_g_s from pickle")
-    with open(altier_path[0] + f'all_Si_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl', 'rb') as f:
+    with open(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl', 'rb') as f:
         all_Si_ws_g_s = pickle.load(f)
     print("Loaded all_Si_ws_g_s from pickle with nbins =", len(enus))
 else:
@@ -283,7 +283,7 @@ else:
 
     print("Calculated S_i for all neutrinos and gammas and weighting schemes")
     #Save to pickle
-    with open(altier_path[0] + f'all_Si_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl', 'wb') as f:
+    with open(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl', 'wb') as f:
         pickle.dump(all_Si_ws_g_s, f)
 
 
@@ -305,9 +305,9 @@ def ns_HAT_all_season_all_psr_sing_gamma_wt_d2_s1400_wtht_weights(gamma, e_nus=e
 
 #Pickle
 arr = []
-if os.path.isfile(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl'):
+if os.path.isfile(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl'):
     print("Loading ns_hat from pickle...")
-    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl', 'rb') as f:
+    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl', 'rb') as f:
         arr = pickle.load(f)
     print("Loaded ns_hat from pickle with nbins =", len(enus))
 else:
@@ -316,12 +316,12 @@ else:
     arr=[]
     for gamma in prange(len(gamma_arr)):
         tmp = ns_HAT_all_season_all_psr_sing_gamma_wt_d2_s1400_wtht_weights(gamma_arr[gamma])
-        # np.savetxt('outputs/ns_hat_wt_wt_gamma_{}.txt'.format(gamma_arr[gamma]), tmp)
+        np.savetxt('outputs/ns_hat_wt_wt_gamma_{}.txt'.format(gamma_arr[gamma]), tmp)
         arr.append(tmp)
         tmp = []
 
     arr = np.array(arr, dtype=np.float64)
-    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl', 'wb') as f:
+    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl', 'wb') as f:
         pickle.dump(arr, f)
     print("\nCalculationed ns_HAT for all gamma and weighting schemes")
     
@@ -362,7 +362,7 @@ print('\nCALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS')
 
 all_TSS_wt_d2_wt_s = np.array(all_TSS_wt_d2_wt_s, dtype=np.float64)
 
-pickle.dump(all_TSS_wt_d2_wt_s, open(altier_path[0] + f'all_TSS_{len(enus)}_bins_C_{cone_deg}_wt_valid_dDM_s14.pkl', 'wb'))
+pickle.dump(all_TSS_wt_d2_wt_s, open(altier_path[0] + f'all_TSS_wt_d2_wt_s_{len(enus)}_bins_C_wt_valid_dDM_s14.pkl', 'wb'))
 
 font = {'family': 'serif',
         'weight': 'bold',
@@ -413,7 +413,8 @@ else:
     plt.suptitle('TS vs Total Neutrino Flux at 100 TeV (' + str(cone_deg) + '$^{\circ}$)', fontweight='bold', fontsize=20, fontfamily='serif')
 
 plt.tight_layout()
-plt.savefig(f'outputs/TS_vs_E2dfde_bins={len(enus)}_C_{cone_deg}_valid_dDM_s14.pdf')
+plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel_all_{cone_deg}_valid_dDM_s14.pdf')
+
 
 
 
@@ -435,10 +436,10 @@ p = len(mspdata)
 w_models = np.column_stack([np.ones(p), np.ones(p)]).T.astype(np.float64)
 
 
-if f'wt_acc_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl' in os.listdir(altier_path[0]):# or f'wt_acc.pkl_{len(enus)}' in os.listdir(altier_path[1]):
+if f'wt_acc_{len(enus)}_bins_FEB.pkl' in os.listdir(altier_path[0]):# or f'wt_acc.pkl_{len(enus)}' in os.listdir(altier_path[1]):
     print("Loading wt_acc from pickle")
     
-    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl', 'rb') as f:
+    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_FEB.pkl', 'rb') as f:
         wt_acc = pickle.load(f)
     
     
@@ -458,16 +459,16 @@ else:
         wt_allpsr = []
         
     wt_acc = np.asfarray(wt_acc, dtype=np.float64)
-    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl', 'wb') as f:
+    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_FEB.pkl', 'wb') as f:
         pickle.dump(wt_acc, f)
     print("Calculated wt_acc for all pulsars and seasons and gamma")
 season_walls = np.array(icparts.copy(), dtype=np.float64)
 
 
 all_Si_ws_g_s = []
-if os.path.isfile(altier_path[0] + f'all_Si_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl'):
+if os.path.isfile(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_mixed_cone_{cone_deg}.pkl'):
     print("Loading all_Si_ws_g_s from pickle")
-    with open(altier_path[0] + f'all_Si_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl', 'rb') as f:
+    with open(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_mixed_cone_{cone_deg}.pkl', 'rb') as f:
         all_Si_ws_g_s = pickle.load(f)
     print("Loaded all_Si_ws_g_s from pickle with nbins =", len(enus))
 else:
@@ -499,7 +500,7 @@ else:
 
     print("Calculated S_i for all neutrinos and gammas and weighting schemes")
     #Save to pickle
-    with open(altier_path[0] + f'all_Si_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl', 'wb') as f:
+    with open(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_mixed_cone_{cone_deg}.pkl', 'wb') as f:
         pickle.dump(all_Si_ws_g_s, f)
 
 
@@ -517,9 +518,9 @@ def ns_HAT_all_season_all_psr_sing_gamma_wt_wtht_weights(gamma, e_nus=enus, phi0
     return np.array([np.sum(ns_hat_wt)], dtype=np.float64)
 #Pickle
 arr = []
-if os.path.isfile(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl'):
+if os.path.isfile(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_mixed_cone_{cone_deg}.pkl'):
     print("Loading ns_hat from pickle...")
-    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl', 'rb') as f:
+    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_mixed_cone_{cone_deg}.pkl', 'rb') as f:
         arr = pickle.load(f)
     print("Loaded ns_hat from pickle with nbins =", len(enus))
 else:
@@ -528,18 +529,18 @@ else:
     arr=[]
     for gamma in prange(len(gamma_arr)):
         tmp = ns_HAT_all_season_all_psr_sing_gamma_wt_wtht_weights(gamma_arr[gamma])
-        # np.savetxt('outputs/ns_hat_wt_wt_gamma_{}.txt'.format(gamma_arr[gamma]), tmp)
+        np.savetxt('outputs/ns_hat_wt_wt_gamma_{}.txt'.format(gamma_arr[gamma]), tmp)
         arr.append(tmp)
         tmp = []
 
     arr = np.array(arr, dtype=np.float64)
-    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_mixed_psr.pkl', 'wb') as f:
+    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_mixed_cone_{cone_deg}.pkl', 'wb') as f:
         pickle.dump(arr, f)
     print("\nCalculationed ns_HAT for all gamma and weighting schemes")
 
 
 
-print('\nCALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR UNIFORM WEIGHTS\n')
+print('\nCALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS\n')
 all_TSS_wmod1 = []
 for gamma in prange(len(gamma_arr)):
     print("gamma = {}".format(gamma))
@@ -564,7 +565,7 @@ for gamma in prange(len(gamma_arr)):
     all_TSS_wmod1.append(temp)
     temp = []
 
-print('\nCALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR UNIFORM WEIGHTS')
+print('\nCALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS')
 
 all_TSS_wmod1 = np.array(all_TSS_wmod1, dtype=np.float64)
 
@@ -581,10 +582,10 @@ msra = np.array(mspdata['RAJD'], dtype=np.float64)
 msdec = np.array(mspdata['DECJD'], dtype=np.float64)
 p = len(mspdata)
 
-if f'wt_acc_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl' in os.listdir(altier_path[0]):# or f'wt_acc.pkl_{len(enus)}' in os.listdir(altier_path[1]):
+if f'wt_acc_{len(enus)}_bins_FEB_2.pkl' in os.listdir(altier_path[0]):# or f'wt_acc.pkl_{len(enus)}' in os.listdir(altier_path[1]):
     print("Loading wt_acc from pickle")
     
-    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl', 'rb') as f:
+    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_FEB_2.pkl', 'rb') as f:
         wt_acc = pickle.load(f)
     
     
@@ -604,16 +605,16 @@ else:
         wt_allpsr = []
         
     wt_acc = np.asfarray(wt_acc, dtype=np.float64)
-    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl', 'wb') as f:
+    with open(altier_path[0] + f'wt_acc_{len(enus)}_bins_FEB_2.pkl', 'wb') as f:
         pickle.dump(wt_acc, f)
     print("Calculated wt_acc for all pulsars and seasons and gamma")
 
 
 
 all_Si_ws_g_s = []
-if os.path.isfile(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl'):
+if os.path.isfile(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_FEB.pkl'):
     print("Loading all_Si_ws_g_s from pickle")
-    with open(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl', 'rb') as f:
+    with open(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_FEB.pkl', 'rb') as f:
         all_Si_ws_g_s = pickle.load(f)
     print("Loaded all_Si_ws_g_s from pickle with nbins =", len(enus))
 else:
@@ -644,7 +645,7 @@ else:
 
     print("Calculated S_i for all neutrinos and gammas and weighting schemes")
     #Save to pickle
-    with open(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl', 'wb') as f:
+    with open(altier_path[0] + f'all_Si_ws_g_s_{len(enus)}_bins_FEB.pkl', 'wb') as f:
         pickle.dump(all_Si_ws_g_s, f)
 
 
@@ -665,9 +666,9 @@ def ns_HAT_all_season_all_psr_sing_gamma_wt_d2_s1400_wtht_weights(gamma, e_nus=e
     return np.array([ns_hat_wt_dist, ns_hat_wt_s1400], dtype=np.float64)
 #Pickle
 arr = []
-if os.path.isfile(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl'):
+if os.path.isfile(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_FEB.pkl'):
     print("Loading ns_hat from pickle...")
-    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl', 'rb') as f:
+    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_FEB.pkl', 'rb') as f:
         arr = pickle.load(f)
     print("Loaded ns_hat from pickle with nbins =", len(enus))
 else:
@@ -676,19 +677,19 @@ else:
     arr=[]
     for gamma in prange(len(gamma_arr)):
         tmp = ns_HAT_all_season_all_psr_sing_gamma_wt_d2_s1400_wtht_weights(gamma_arr[gamma])
-        # np.savetxt('outputs/ns_hat_wt_wt_gamma_{}.txt'.format(gamma_arr[gamma]), tmp)
+        np.savetxt('outputs/ns_hat_wt_wt_gamma_{}.txt'.format(gamma_arr[gamma]), tmp)
         arr.append(tmp)
         tmp = []
 
     arr = np.array(arr, dtype=np.float64)
-    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_C_{cone_deg}_mixed_psr_2.pkl', 'wb') as f:
+    with open(altier_path[0] + f'ns_all_ws_{len(enus)}_bins_FEB.pkl', 'wb') as f:
         pickle.dump(arr, f)
     print("\nCalculationed ns_HAT for all gamma and weighting schemes")
     
     
     
     
-print('\nCALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR 1/D2 AND S1400 WEIGHTS\n')
+print('\nCALCULATING TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS\n')
 
 all_TSS_wt_d2_wt_s_mixed = []
 for ws in prange(2):
@@ -718,7 +719,7 @@ for ws in prange(2):
     all_TSS_wt_d2_wt_s_mixed.append(tmpp)
     tmpp = []
 
-print('\nCALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR 1/D2 AND S1400 WEIGHTS')
+print('\nCALCULATED TS FOR ALL PSRS FOR ALL GAMMAS FOR ALL WEIGHTS')
 
 
 
@@ -727,7 +728,7 @@ print(np.shape(all_TSS_wmod1))
 print(np.shape(all_TSS_wt_d2_wt_s_mixed))
 
 
-pickle.dump(np.array([all_TSS_wmod1, all_TSS_wt_d2_wt_s_mixed[0], all_TSS_wt_d2_wt_s_mixed[1]]), open(f'./pickle/all_TSS_{len(enus)}_bins_C_{cone_deg}_mixed.pkl', 'wb'))
+pickle.dump(np.array([all_TSS_wmod1, all_TSS_wt_d2_wt_s_mixed[0], all_TSS_wt_d2_wt_s_mixed[1]]), open('./pickle/all_TSS_mixed.pkl', 'wb'))
 
 font = {'family': 'serif',
         'weight': 'bold',
@@ -746,6 +747,7 @@ axesfont = {'family': 'serif',
         'size': 17,
         }
 
+print(f'\nTS_vs_E2dfde_all_w_model_bins={len(enus)}_FEB_{cone_deg}.pdf\nDONE')
 
 # ALL PLOTS
 fig, axs = plt.subplots(1,3, figsize=(18, 6))
@@ -797,5 +799,4 @@ else:
     plt.suptitle('TS vs Total Neutrino Flux at 100 TeV (' + str(cone_deg) + '$^{\circ}$)', fontweight='bold', fontsize=20, fontfamily='serif')
 
 plt.tight_layout()
-plt.savefig(f'outputs/TS_vs_E2dfde_bins={len(enus)}_C_{cone_deg}_mixed_psr.pdf')
-print(f'\nTS_vs_E2dfde_bins={len(enus)}_C_{cone_deg}_mixed_psr.pdf\nDONE')
+plt.savefig(f'outputs/TS_vs_E2dfde_all_w_model_bins={len(enus)}_C_wmodel_all_{cone_deg}.pdf')

@@ -1,9 +1,9 @@
 #!/usr/bin/sh
 
 ##SBATCH --account=vibhavasu.phy.iith
-#SBATCH --job-name=t4s_24_my           ## Name of the job
-#SBATCH --output=t4s_24_my.out    ## Output file
-#SBATCH --error=t4s_24_my.err     ## Error file
+#SBATCH --job-name=t4s_24_sm           ## Name of the job
+#SBATCH --output=t4s_24_sm.out    ## Output file
+#SBATCH --error=t4s_24_sm.err     ## Error file
 #SBATCH --nodes=1              ## Number of nodes
 #SBATCH --ntasks-per-node=48    ## Number of tasks per node
 #SBATCH --time=3-23:59:59

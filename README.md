@@ -20,13 +20,13 @@ The core/ directory contains the following files:
 - stacking_analysis.py : defines the functions used to calculate the Test statistic, and the signal flux model and other miscellaneous functions used in the analysis indicated in the paper https://arxiv.org/abs/2306.03427
 - req_arrays.py : Stores the required data in the form of numpy arrays for faster and easier computation
 - readfiles.py : Reads and refines the data from the files and stores them in the form of panda.Dataframes
-- signal_bag.py : defines the functions used to compute the Signal and Background PDF in the analysis indicated in the paper https://arxiv.org/abs/2306.03427
+- signal_bag.py : (depercated) defines the functions used to compute the Signal and Background PDF in the analysis indicated in the paper https://arxiv.org/abs/2306.03427
 - weights.py : (depercated) defines the functions used to compute the weights of pulsars for the analysis indicated in the paper https://arxiv.org/abs/2306.03427
 
-This code is tested against the4 CHIME/FRB data to check whether the code runs correctly. The files are:
+<!--This code is tested against the4 CHIME/FRB data to check whether the code runs correctly. The files are:
 - sig_bag_CHIME.py : Has the same functions as in signal_bag.py but are tested with CHIME/FRB data to check whether the  code runs correctly
 - req_arrays_CHIME.py : Replicates the functions in req_arrays.py but for CHIME/FRB data
-- readfiles_CHIME.py : Replicates the functions in readfiles.py but for CHIME/FRB data
+- readfiles_CHIME.py : Replicates the functions in readfiles.py but for CHIME/FRB data -->
 
 #### **data**
 
@@ -60,7 +60,7 @@ The signal PDF requires heavy computation which consists:
 
 - The no.of signal events for each pulsar indexed by $j$ is given by: 
 
-    $\hat{n}_{s_j} =  T \times \intop A_{eff}(E_{\nu}, \delta_j)\dfrac{dF}{dE_{\nu}}dE_{\nu}$
+$\hat{n}_{s_j} =  T \times \intop A_{eff}(E_{\nu}, \delta_j)\dfrac{dF}{dE_{\nu}}dE_{\nu}$
 
     $T$, $A_{eff}$, and $\delta_j$ are the same as above. $\dfrac{dF}{dE_{\nu}}$ is the expected neutrino spectrum from the source and can be modelled using a power-law as follows:
 
@@ -75,12 +75,15 @@ Then the stacked Signal PDF for each neutrino $i$ is calculated by taking the we
 
 The Likelihood of $\hat{n}_s$ signal events is given by: 
 
-    $\mathcal{L}(n_s) = \prod_i \frac{n_s}{N} S_i + (1-\frac{n_s}{N}) B_i$
+$\mathcal{L}(n_s) = \prod_i \frac{n_s}{N} S_i + (1-\frac{n_s}{N}) B_i$
 
-   where $N$ is the total number of neutrinos, $S_i$ is the signal PDF for the $i^{th}$ neutrino, and $B_i$ is the background PDF for the $i^{th}$ neutrino. The background PDF is the no.of neutrinos within 5$^\circ$ angular cone of the $i^{th}$ neutrino. The background PDF is calculated for 1134450 neutrinos. The Likelihood is calculated for 3 different spectral indices. This requires 1134450 * 3 = 7.122e11 values.
+   where $N$ is the total number of neutrinos, $S_i$ is the signal PDF for the $i^{th}$ neutrino, and $B_i$ is the background PDF for the $i^{th}$ neutrino. 
+   
+The background PDF is the no.of neutrinos within 5$^\circ$ declination band of the $i^{th}$ neutrino. The background PDF is calculated for 1134450 neutrinos. 
 
+The Likelihood is calculated for 3 different spectral indices.
+   
 We then easily calculate upper limits by using scipy.interp1d as the no.of values required are less
-    
 
 #### **Solution to the computational challenges**
 - This is a very large number of values to compute. To overcome this challenge, we use the following techniques:

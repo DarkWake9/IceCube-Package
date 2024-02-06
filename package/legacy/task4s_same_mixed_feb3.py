@@ -528,7 +528,7 @@ else:
     arr=[]
     for gamma in prange(len(gamma_arr)):
         tmp = ns_HAT_all_season_all_psr_sing_gamma_wt_wtht_weights(gamma_arr[gamma])
-        # np.savetxt('outputs/ns_hat_wt_wt_gamma_{}.txt'.format(gamma_arr[gamma]), tmp)
+        np.savetxt('outputs/ns_hat_wt_wt_gamma_{}.txt'.format(gamma_arr[gamma]), tmp)
         arr.append(tmp)
         tmp = []
 
